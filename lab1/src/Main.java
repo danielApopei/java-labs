@@ -26,27 +26,44 @@ public class Main {
         System.out.println("Willy-nilly, this semester I will learn " + languages[result]);
     }
 
-    public static int isKReductible(int k, int n) {
-        while (n!=k && n>0) {
+    public static boolean isKReducible(int n, int k) {
+        int[] foundNumbers = new int[100];
+        int length = 0;
+        while (n!=k && n>1) {
             int sum = 0;
             while(n>0) {
                 sum = sum + (n%10)*(n%10);
                 n/=10;
             }
             n = sum;
+            for (int i=0;i<length;i++) {
+                if(foundNumbers[i] == n) {
+                    return false;
+                }
+            }
+            foundNumbers[length++] = n;
         }
-        if(n==k)
-            return 1;
-        else return 0;
+        return n == k;
     }
     public static void homework(String[] args) {
         int a = Integer.parseInt(args[0]);
         int b = Integer.parseInt(args[1]);
         int k = Integer.parseInt(args[2]);
-        System.out.println(a + b + k);
+        StringBuilder resultString = new StringBuilder();
+        for(int i = a;i<=b;i++) {
+            boolean result = isKReducible(i,k);
+            if(result)
+                resultString.append(i).append(" ");
+        }
+        System.out.println(resultString);
     }
 
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         compulsory();
+        homework(args);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+        System.out.println("Running time: " + duration / 1000000 + " milliseconds");
     }
 }
