@@ -19,3 +19,13 @@
   - using System.nanoTime();
   - getting a point in time at beginning and end of algorithm
   - the running time is the difference
+
+## Bonus
+
+- showing the adjecany matrix of wheel graph Wn.
+  - first, we connect node 0 (the hub) to every other node
+  - then, we connect nodes 1-2, 2-3, ..., n-1-1
+- calculating the number of cycles
+  - we use a dfs algorithm while building a cycle on the way there
+  - when we can access the startingPoint once again, then we have found a cycle
+  - after, we remove duplicates which may arise from starting the dfs from two different nodes of the same cycle (we divide by the length)

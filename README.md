@@ -5,3 +5,4 @@
 - Lab 1
 	- Compulsory
 	- Homework
+	- Bonus
