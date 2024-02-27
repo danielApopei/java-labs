@@ -1,5 +1,5 @@
-## Lab1
+# Lab1
 
-# Progress
+## Progress
 
 - Compulsory (always 'Java' because digit sum is 9 when x % 9 == 0)
