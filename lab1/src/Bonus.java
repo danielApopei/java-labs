@@ -18,9 +18,10 @@ public class Bonus {
                     adjacencyMatrix[i][j] = 0;
             }
             adjacencyMatrix[0][0] = 0;
-            for(int i=0;i<n;i++)
+            for(int i=1;i<n;i++)
             {
-                int nextNode = (i+1)%nodes;
+                int nextNode = i+1;
+                if(i == n-1) nextNode = 1;
                 adjacencyMatrix[i][nextNode] = adjacencyMatrix[nextNode][i] = 1;
             }
         }
@@ -78,19 +79,16 @@ public class Bonus {
                 int x = cycleCount[poz];
                 // we must remember though, that for every cycle of length k, we added it k times (its rotations as well)
                 x /= (poz);
+                x /= 2;
                 sum += x;
                 poz++;
             }
-            // the nature of the for loop used for dfs forces the first step to be 0 (the hub)
-            // however this does not cover cases in which the hub is not part of the cycle
-            // there is only one such case (the perimeter), which we will cover manually
-            sum++;
             System.out.println(sum);
         }
     }
 
     public static void runProblem() {
-        WheelGraph g = new WheelGraph(10);
+        WheelGraph g = new WheelGraph(15);
         g.printAdjacencyMatrix();
         g.checkCycles();
     }
