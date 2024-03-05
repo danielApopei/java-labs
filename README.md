@@ -6,3 +6,5 @@
 	- Compulsory
 	- Homework
 	- Bonus
+- Lab 2
+	- Compulsory
