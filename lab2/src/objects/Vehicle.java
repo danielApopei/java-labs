@@ -1,12 +1,11 @@
 package objects;
 
-public class Vehicle {
-    Depot depot;
-    int id;
-    public Vehicle(Depot depot, int id) {
-        this.depot = depot;
-        this.id = id;
-    }
+/**
+ * abstract class representing a Vehicle
+ */
+public abstract class Vehicle {
+    protected Depot depot;
+    protected String name;
 
     public Depot getDepot() {
         return depot;
@@ -16,19 +15,26 @@ public class Vehicle {
         this.depot = depot;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Vehicle{" +
                 "depot=" + depot +
-                ", id=" + id +
+                ", name=" + name +
                 '}';
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Vehicle other)) {
+            return false;
+        }
+        return name.equals(other.name);
     }
 }

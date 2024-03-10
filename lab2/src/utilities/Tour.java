@@ -1,0 +1,60 @@
+package utilities;
+
+import objects.Vehicle;
+
+import java.util.ArrayList;
+
+/**
+ * class that stores a tour, including the current location and the visited destinations in order
+ */
+public class Tour {
+    Vehicle vehicle;
+    int currentLocation = 0;
+    ArrayList<Integer> destinations;
+    ArrayList<String> clientNames;
+    public Tour(Vehicle vehicle) {
+        destinations = new ArrayList<>();
+        clientNames = new ArrayList<>();
+        this.vehicle = vehicle;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public int getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(int currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public ArrayList<Integer> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(ArrayList<Integer> destinations) {
+        this.destinations = destinations;
+    }
+
+    /**
+     * adds a destination; also moves the car of the tour to that location
+     * @param location new location
+     * @param name new name
+     */
+    public void addDestination(int location, String name) {
+        destinations.add(location);
+        currentLocation = location;
+        clientNames.add(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Tour: vehicleName = " + vehicle.getName() + "\nroute: "+destinations + "\nclients: "+clientNames;
+    }
+}

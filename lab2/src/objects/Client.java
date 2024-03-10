@@ -1,20 +1,29 @@
 package objects;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * class representing a Client with a name, type and visiting hours
+ */
 public class Client {
-    String name;
-    ClientType type;
-    TimeInterval visitingInterval;
+    private String name;
+    private ClientType type;
+    private LocalTime minTime;
+    private LocalTime maxTime;
+
+    public Client() {
+        this.name = "";
+    }
+
     public Client(String name) {
         this.name = name;
-        this.type = ClientType.REGULAR;
-        this.visitingInterval = new TimeInterval(0, 0);
     }
-    public Client(String name, ClientType type, TimeInterval visitingInterval) {
+    public Client(String name, ClientType type, LocalTime minTime, LocalTime maxTime) {
         this(name);
         this.type = type;
-        this.visitingInterval = visitingInterval;
+        this.minTime = minTime;
+        this.maxTime = maxTime;
     }
 
     public String getName() {
@@ -33,12 +42,20 @@ public class Client {
         this.type = type;
     }
 
-    public TimeInterval getVisitingInterval() {
-        return visitingInterval;
+    public LocalTime getMinTime() {
+        return minTime;
     }
 
-    public void setVisitingInterval(TimeInterval visitingInterval) {
-        this.visitingInterval = visitingInterval;
+    public void setMinTime(LocalTime minTime) {
+        this.minTime = minTime;
+    }
+
+    public LocalTime getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(LocalTime maxTime) {
+        this.maxTime = maxTime;
     }
 
     @Override
@@ -46,7 +63,16 @@ public class Client {
         return "Client{" +
                 "name='" + name + '\'' +
                 ", type=" + type +
-                ", visitingInterval=" + visitingInterval +
+                ", minTime=" + minTime +
+                ", maxTime=" + maxTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(name, client.name);
     }
 }
