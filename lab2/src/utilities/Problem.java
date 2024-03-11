@@ -4,7 +4,10 @@ import objects.Client;
 import objects.Depot;
 import objects.Solution;
 import objects.Vehicle;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +16,7 @@ import java.util.List;
  * can generate a greedy solution for a given set of Vehicles and Clients
  */
 public class Problem {
+    final int DEFAULT_MIN_DISTANCE = 1000;
     private Depot[] depots;
     int depotCount = 0;
     private Client[] clients;
@@ -155,6 +159,23 @@ public class Problem {
 
         if(!problemGenerated)
             return new Solution();
+        boolean[] clientVisited = new boolean[clientCount];
+        for(int i=0;i<clientCount;i++)
+            clientVisited[i] = false;
+        // first, sort the clients by the starting time
+        int n = clientCount;
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(clients[i].getMinTime().isAfter(clients[j].getMinTime())) {
+                    Client aux = clients[i];
+                    clients[i] = clients[j];
+                    clients[j] = aux;
+                }
+            }
+        }
+        // next, pick for each client, what car is available
         ArrayList<Tour> tours = new ArrayList<>();
         for(int i=0;i<depotCount;i++)
         {
@@ -163,23 +184,34 @@ public class Problem {
                     tours.add(new Tour(v));
             }
         }
-        for(int i=0;i<clientCount;i++)
-        {
-            int clientLocation = i + depotCount;
-            String closestCarName = "";
-            int shortestDistance = 100;
-            for(Tour t: tours){
-                int distance = pathCost[t.currentLocation][clientLocation];
-                if(distance < shortestDistance) {
-                    shortestDistance = distance;
-                    closestCarName = t.vehicle.getName();
+        boolean updated = true;
+        while(updated) {
+            updated = false;
+            for (int i = 0; i < clientCount; i++) {
+                if(clientVisited[i]) continue;
+                int clientLocation = i + depotCount;
+                String closestCarName = "";
+                int shortestDistance = DEFAULT_MIN_DISTANCE;
+                for (Tour t : tours) {
+                    int distance = pathCost[t.currentLocation][clientLocation];
+                    LocalTime carTime = LocalTime.of(t.getCurrentTime(), 0);
+                    carTime = carTime.plusHours(distance);
+                    if (distance < shortestDistance && carTime.isBefore(clients[i].getMaxTime()) && carTime.isAfter(clients[i].getMinTime())) {
+                        shortestDistance = distance;
+                        closestCarName = t.vehicle.getName();
+                    }
                 }
-            }
-            for(Tour t: tours){
-                int distance = pathCost[t.currentLocation][clientLocation];
-                if(distance == shortestDistance) {
-                    t.addDestination(clientLocation, clients[clientLocation-depotCount].getName());
-                    break;
+                if (shortestDistance < DEFAULT_MIN_DISTANCE)
+                    updated = true;
+                for (Tour t : tours) {
+                    int distance = pathCost[t.currentLocation][clientLocation];
+                    LocalTime carTime = LocalTime.of(t.getCurrentTime(), 0);
+                    carTime = carTime.plusHours(distance);
+                    if (distance == shortestDistance && carTime.isBefore(clients[i].getMaxTime()) && carTime.isAfter(clients[i].getMinTime())) {
+                        t.addDestination(clientLocation, clients[clientLocation - depotCount].getName(), distance);
+                        clientVisited[i] = true;
+                        break;
+                    }
                 }
             }
         }
