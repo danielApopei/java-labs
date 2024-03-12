@@ -9,3 +9,5 @@
 - Lab 2
 	- Compulsory
 	- Homework
+- Lab 3
+	- Compulsory
