@@ -1,3 +1,8 @@
+package objects;
+
+/**
+ * class that represents an Attraction
+ */
 public abstract class Attraction implements Comparable<Attraction> {
     public String name;
     @Override

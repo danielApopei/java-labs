@@ -11,3 +11,4 @@
 	- Homework
 - Lab 3
 	- Compulsory
+	- Homework

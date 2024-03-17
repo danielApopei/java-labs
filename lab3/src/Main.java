@@ -1,8 +1,8 @@
+import objects.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -11,16 +11,32 @@ public class Main {
         museum.setTicketPrice(20);
 
         Map<LocalDate, TimeInterval> museumTimetable = new HashMap<>();
-        museumTimetable.put(LocalDate.of(2024, 2, 29), new TimeInterval(LocalTime.of(9, 0), LocalTime.of(17, 0)));
-        museum.setTimetable(museumTimetable);
+        museum.addTimetable(LocalDate.of(2024, 2, 29), new TimeInterval(LocalTime.of(9, 0), LocalTime.of(17, 0)));
+        museum.addTimetable(LocalDate.of(2024, 3, 1), new TimeInterval(LocalTime.of(8, 30), LocalTime.of(16, 0)));
+        museum.setTicketPrice(20.3d);
 
         Church church = new Church("my church");
 
         Map<LocalDate, TimeInterval> churchTimetable = new HashMap<>();
-        churchTimetable.put(LocalDate.of(2024, 2, 29), new TimeInterval(LocalTime.of(8, 0), LocalTime.of(18, 0)));
-        church.setTimetable(churchTimetable);
+        church.addTimetable(LocalDate.of(2024, 2, 29), new TimeInterval(LocalTime.of(8, 0), LocalTime.of(18, 0)));
+
+        Statue statue = new Statue("Cuza statue");
 
         System.out.println(museum);
         System.out.println(church);
+        System.out.println(statue);
+
+        Trip trip = new Trip("Iasi");
+        trip.addAttraction(museum);
+        trip.addAttraction(church);
+        trip.addAttraction(statue);
+        trip.displayVisitableNotPayable(LocalDate.of(2024, 2, 29));
+        System.out.println("Opening hour for museum: " + museum.getOpeningHour(LocalDate.of(2024, 2, 29)));
+
+        TravelPlan travelPlan = new TravelPlan(trip);
+        travelPlan.addDayPlan(museum, LocalDate.of(2024, 2, 29));
+        travelPlan.addDayPlan(church, LocalDate.of(2024, 3, 2));
+        travelPlan.printPlan();
     }
+
 }

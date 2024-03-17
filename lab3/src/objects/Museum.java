@@ -1,24 +1,30 @@
+package objects;
+
 import java.time.LocalDate;
 import java.util.Map;
 
-public class Museum extends Attraction implements Visitable, Payable{
+/**
+ * represents a Museum (type of Attraction); visitable and payable
+ */
+public class Museum extends Attraction implements Visitable, Payable {
     double ticketPrice;
+
     public double getTicketPrice() {
         return 0;
     }
 
-    Museum(String name) {
+    public Museum(String name) {
         this.name = name;
     }
 
     @Override
     public Map<LocalDate, TimeInterval> getTimetable() {
-        return null;
+        return this.timetable;
     }
 
     @Override
-    public void setTimetable(Map<LocalDate, TimeInterval> m) {
-
+    public void addTimetable(LocalDate date, TimeInterval interval) {
+        timetable.put(date, interval);
     }
 
     public void setTicketPrice(double newTicketPrice) {
@@ -28,7 +34,7 @@ public class Museum extends Attraction implements Visitable, Payable{
     @Override
     public String toString() {
         return "Museum{" +
-                "ticketPrice=" + ticketPrice +
+                "ticketPrice=" + ticketPrice + " " + timetable +
                 '}';
     }
 }

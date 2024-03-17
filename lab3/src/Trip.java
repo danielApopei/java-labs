@@ -1,8 +1,15 @@
+import objects.Attraction;
+import objects.Payable;
+import objects.Visitable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * class that lists all the attractions that are planned to be visited in a city, along with start and end time
+ */
 public class Trip {
     private String city;
     private LocalDate start, end;
@@ -10,8 +17,13 @@ public class Trip {
         this.city = city;
     }
     private List<Attraction> attractionList = new ArrayList<>();
-    public void displayVisitableNotPayable() {
-        LocalDate dateToSortBy = this.start;
+
+    /**
+     * displays all attractions in a trip that are visitable, but free
+     * @param dateToSortBy the date by which they are to be sorted (openingHour)
+     */
+    public void displayVisitableNotPayable(LocalDate dateToSortBy) {
+//        LocalDate dateToSortBy = this.start;
         ArrayList<Attraction> list = new ArrayList<>();
         for(Attraction a : attractionList) {
             if(a instanceof Visitable && !(a instanceof Payable)) {
@@ -26,12 +38,23 @@ public class Trip {
                 return v1.getOpeningHour(dateToSortBy).compareTo(v2.getOpeningHour(dateToSortBy));
             }
         });
+        System.out.println("Visitable and Not Payable: ");
         for(Attraction a: list) {
             System.out.println(a);
         }
     }
 
     public void addAttraction(Attraction attraction) {
+        attractionList.add(attraction);
+    }
 
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "city='" + city + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", attractionList=" + attractionList +
+                '}';
     }
 }
