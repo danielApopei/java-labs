@@ -1,6 +1,7 @@
 package objects;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Map;
  */
 public class Museum extends Attraction implements Visitable, Payable {
     double ticketPrice;
+    public Map<LocalDate, TimeInterval> timetable = new HashMap<>();
 
     public double getTicketPrice() {
         return 0;

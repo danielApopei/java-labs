@@ -1,5 +1,6 @@
 package objects;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -11,11 +12,9 @@ import java.util.Map;
 public interface Visitable {
     Map<LocalDate, TimeInterval> timetable = new HashMap<>();
 
-    public default Map<LocalDate, TimeInterval> getTimetable() {
-        return this.timetable;
-    }
+    public Map<LocalDate, TimeInterval> getTimetable();
     void addTimetable(LocalDate date, TimeInterval interval);
     default LocalTime getOpeningHour(LocalDate date) {
-        return timetable.get(date).getLeft();
+        return getTimetable().get(date).getLeft();
     }
 }

@@ -3,6 +3,7 @@ package objects;
 import objects.Attraction;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,14 +11,15 @@ import java.util.Map;
  */
 public class Concert extends Attraction implements Visitable, Payable {
     private double ticketPrice;
+    public Map<LocalDate, TimeInterval> timetable = new HashMap<>();
     @Override
     public Map<LocalDate, TimeInterval> getTimetable() {
-        return Visitable.timetable;
+        return this.timetable;
     }
 
     @Override
     public void addTimetable(LocalDate date, TimeInterval interval) {
-        Visitable.timetable.put(date, interval);
+        this.timetable.put(date, interval);
     }
 
     @Override

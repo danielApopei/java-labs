@@ -1,8 +1,7 @@
-import objects.Attraction;
-import objects.Payable;
-import objects.Visitable;
+import objects.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -35,6 +34,7 @@ public class Trip {
             public int compare(Attraction o1, Attraction o2) {
                 Visitable v1 = (Visitable) o1;
                 Visitable v2 = (Visitable) o2;
+
                 return v1.getOpeningHour(dateToSortBy).compareTo(v2.getOpeningHour(dateToSortBy));
             }
         });
