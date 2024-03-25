@@ -7,8 +7,19 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Main-Class>org.example.Main</Main-Class>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>2.4.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -16,12 +27,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <archive>
-                <manifest>
-                  <addClasspath>true</addClasspath>
+              <transformers>
+                <transformer>
                   <mainClass>org.example.Main</mainClass>
-                </manifest>
-              </archive>
+                </transformer>
+              </transformers>
             </configuration>
           </execution>
         </executions>
@@ -34,3 +44,4 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>
+
