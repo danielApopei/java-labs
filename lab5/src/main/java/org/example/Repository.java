@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 public class Repository {
     private String directory;
     private List<Document> documentList = new ArrayList<>();
+    private List<Person> personList = new ArrayList<>();
+    public List<Document> getDocumentList () {
+        return this.documentList;
+    }
     public Repository(String directory) {
         this.directory = directory;
         loadDocuments();
@@ -20,15 +24,18 @@ public class Repository {
 
     void loadDocuments() {
         try {
-            // Use try-with-resources to ensure the stream is closed
             try (var paths = Files.walk(Path.of(this.directory))) {
                 documentList = paths
-                        .filter(Files::isRegularFile) // Filter only files, exclude directories
                         .map(path -> new Document(path.getFileName().toString(), path.toString())) // Map each Path to a Document
-                        .collect(Collectors.toList()); // Collect results into a list
+                        .collect(Collectors.toList());
             }
         } catch (IOException e) {
             System.err.println("Exception: " + e.getMessage());
+        }
+        for(Document d: documentList) {
+            if(Files.isDirectory(Path.of(d.path())) && d.name().matches("[A-Za-z]+_[0-9]+")){
+                personList.add(new Person(Integer.parseInt(d.name().split("_")[1]),d.name().split("_")[0]));
+            }
         }
     }
 
@@ -37,6 +44,17 @@ public class Repository {
             System.out.println("The repository is empty.");
             return;
         }
+        System.out.println("Documents: ");
         documentList.forEach(System.out::println);
+        System.out.println("Person: ");
+        personList.forEach(System.out::println);
+    }
+
+    public List<Person> getPersonList() {
+        return getPersonList();
+    }
+
+    public String getDirectory() {
+        return directory;
     }
 }

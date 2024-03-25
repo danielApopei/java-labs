@@ -1,0 +1,115 @@
+[ {
+  "name" : ".gitignore",
+  "path" : ".\\.gitignore"
+}, {
+  "name" : ".gitignore",
+  "path" : ".\\.idea\\.gitignore"
+}, {
+  "name" : "compiler.xml",
+  "path" : ".\\.idea\\compiler.xml"
+}, {
+  "name" : "encodings.xml",
+  "path" : ".\\.idea\\encodings.xml"
+}, {
+  "name" : "jarRepositories.xml",
+  "path" : ".\\.idea\\jarRepositories.xml"
+}, {
+  "name" : "misc.xml",
+  "path" : ".\\.idea\\misc.xml"
+}, {
+  "name" : "vcs.xml",
+  "path" : ".\\.idea\\vcs.xml"
+}, {
+  "name" : "workspace.xml",
+  "path" : ".\\.idea\\workspace.xml"
+}, {
+  "name" : "files.html",
+  "path" : ".\\files.html"
+}, {
+  "name" : "myfile.json",
+  "path" : ".\\myfile.json"
+}, {
+  "name" : "pom.xml",
+  "path" : ".\\pom.xml"
+}, {
+  "name" : "README.md",
+  "path" : ".\\README.md"
+}, {
+  "name" : "Command.java",
+  "path" : ".\\src\\main\\java\\org\\example\\Command.java"
+}, {
+  "name" : "Document.java",
+  "path" : ".\\src\\main\\java\\org\\example\\Document.java"
+}, {
+  "name" : "ExportCommand.java",
+  "path" : ".\\src\\main\\java\\org\\example\\ExportCommand.java"
+}, {
+  "name" : "InvalidParamsException.java",
+  "path" : ".\\src\\main\\java\\org\\example\\InvalidParamsException.java"
+}, {
+  "name" : "Main.java",
+  "path" : ".\\src\\main\\java\\org\\example\\Main.java"
+}, {
+  "name" : "NullRepoException.java",
+  "path" : ".\\src\\main\\java\\org\\example\\NullRepoException.java"
+}, {
+  "name" : "Person.java",
+  "path" : ".\\src\\main\\java\\org\\example\\Person.java"
+}, {
+  "name" : "ReportCommand.java",
+  "path" : ".\\src\\main\\java\\org\\example\\ReportCommand.java"
+}, {
+  "name" : "Repository.java",
+  "path" : ".\\src\\main\\java\\org\\example\\Repository.java"
+}, {
+  "name" : "RepositoryShell.java",
+  "path" : ".\\src\\main\\java\\org\\example\\RepositoryShell.java"
+}, {
+  "name" : "ViewCommand.java",
+  "path" : ".\\src\\main\\java\\org\\example\\ViewCommand.java"
+}, {
+  "name" : "style.css",
+  "path" : ".\\src\\main\\resources\\style.css"
+}, {
+  "name" : "template.ftlh",
+  "path" : ".\\src\\main\\resources\\template.ftlh"
+}, {
+  "name" : "Command.class",
+  "path" : ".\\target\\classes\\org\\example\\Command.class"
+}, {
+  "name" : "Document.class",
+  "path" : ".\\target\\classes\\org\\example\\Document.class"
+}, {
+  "name" : "ExportCommand.class",
+  "path" : ".\\target\\classes\\org\\example\\ExportCommand.class"
+}, {
+  "name" : "InvalidParamsException.class",
+  "path" : ".\\target\\classes\\org\\example\\InvalidParamsException.class"
+}, {
+  "name" : "Main.class",
+  "path" : ".\\target\\classes\\org\\example\\Main.class"
+}, {
+  "name" : "NullRepoException.class",
+  "path" : ".\\target\\classes\\org\\example\\NullRepoException.class"
+}, {
+  "name" : "Person.class",
+  "path" : ".\\target\\classes\\org\\example\\Person.class"
+}, {
+  "name" : "ReportCommand.class",
+  "path" : ".\\target\\classes\\org\\example\\ReportCommand.class"
+}, {
+  "name" : "Repository.class",
+  "path" : ".\\target\\classes\\org\\example\\Repository.class"
+}, {
+  "name" : "RepositoryShell.class",
+  "path" : ".\\target\\classes\\org\\example\\RepositoryShell.class"
+}, {
+  "name" : "ViewCommand.class",
+  "path" : ".\\target\\classes\\org\\example\\ViewCommand.class"
+}, {
+  "name" : "style.css",
+  "path" : ".\\target\\classes\\style.css"
+}, {
+  "name" : "template.ftlh",
+  "path" : ".\\target\\classes\\template.ftlh"
+} ]

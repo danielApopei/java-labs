@@ -1,0 +1,256 @@
+CREATE OR REPLACE PROCEDURE inc (p_val IN OUT NUMBER) AS
+BEGIN
+   p_val := p_val + 1;
+END;
+
+set serveroutput on;
+DECLARE
+   v_numar NUMBER := 7;
+BEGIN
+   inc(v_numar); 
+   DBMS_OUTPUT.PUT_LINE( v_numar );  
+END;
+
+BEGIN
+   inc(7);   
+END;
+
+-- daca parametrul de la procedura ar fi doar IN
+CREATE OR REPLACE PROCEDURE inc (p_val IN NUMBER, p_rez OUT number) AS
+BEGIN
+   p_rez := p_val + 1;
+  
+END;
+
+declare
+    rezultat number;
+BEGIN
+  inc(7, rezultat); 
+  DBMS_OUTPUT.PUT_LINE( rezultat );
+END;
+
+CREATE OR REPLACE PROCEDURE inc (p_val IN OUT NUMBER) AS
+BEGIN
+   p_val := p_val + 1;
+END;
+
+---conversie automata
+set serveroutput on;
+DECLARE
+   v_numar varchar2(10) := '7';
+BEGIN
+   inc(v_numar);
+   DBMS_OUTPUT.PUT_LINE( v_numar );
+END;
+
+--Încercati sã construiti un cod asemãnãtor pentru o datã calendaristicã.
+CREATE OR REPLACE PROCEDURE inc (p_val IN OUT date) AS
+BEGIN
+  p_val := next_day(sysdate, 'MONDAY');  --utilizarea unei functii predefinite/publice 'LUNI' sau 'MONDAY'
+  -- p_val := p_val + 1;
+END;
+
+DECLARE
+   v_numar date;-- := sysdate;
+BEGIN
+   inc(v_numar);
+   DBMS_OUTPUT.PUT_LINE( v_numar );
+END;
+
+--Puteti construi o procedurã care sã aibã ca parametri de intrare douã valori 
+--numerice si care sã returneze suma acestora în o a treia variabilã ?
+CREATE OR REPLACE PROCEDURE inc (p_val1 number, p_val2 number, p_rez OUT number) AS
+BEGIN
+   p_rez := p_val1 + p_val2;
+END;
+
+DECLARE
+   v_numar number;
+BEGIN
+   inc(6,7,v_numar);
+   DBMS_OUTPUT.PUT_LINE( v_numar );
+END;
+
+---
+describe inc;
+
+drop procedure inc;
+
+--- initializarea parametrilor
+CREATE OR REPLACE PROCEDURE pow (p_baza IN Integer := 2, p_exponent IN INTEGER DEFAULT 3) AS
+   v_rezultat INTEGER;
+BEGIN
+    v_rezultat := p_baza ** p_exponent;
+    DBMS_OUTPUT.PUT_LINE(v_rezultat);
+END;
+
+set serveroutput on;
+BEGIN
+   pow;
+END;
+--8
+
+set serveroutput on;
+BEGIN
+   pow(p_baza=>2, p_exponent=>3);
+END;
+-- tot 8
+
+set serveroutput on;
+BEGIN
+   pow(p_exponent=>3, p_baza=>2);
+END;
+-- schimb ordinea, dar aceleasi valori 8
+
+set serveroutput on;
+BEGIN
+   pow(p_exponent=>3);
+END;
+--se iau valorile default
+
+---------------------------------------
+CREATE OR REPLACE PROCEDURE pow (p_baza IN Integer := 3, p_exponent IN INTEGER DEFAULT 5, p_out IN OUT Integer) AS   
+BEGIN
+ --return;  
+ --a fortat iesirea din pocedura fara a mai face instructiunea de mai jos; Nu se face return si expresie.
+ p_out := p_baza ** p_exponent;  
+END;
+
+set serveroutput on;
+DECLARE 
+   v_out INTEGER;
+BEGIN
+   pow(p_baza=>3, p_out=>v_out);  --la p_baza de tip IN se preia valoarea: 3  
+                                --iar p_out fiind de tip OUT va returna valoarea prin variabila v_out
+   DBMS_OUTPUT.PUT_LINE(v_out);
+END;
+
+drop procedure pow;
+
+-- FUNCTII-----------
+
+CREATE OR REPLACE FUNCTION make_waves(p_sir_caractere IN varchar2 , v_rezultat OUT varchar2)  -- si utilizare variaila OUT
+RETURN varchar2 AS
+   v_index INTEGER;
+ --  v_rezultat varchar2(1000) := ''; --daca folosim parametrul OUT, nu mai redenumim variabila aici
+BEGIN
+    FOR v_index IN 1..length(p_sir_caractere) LOOP
+        IF(v_index MOD 2 = 1)
+        THEN
+           v_rezultat := v_rezultat || UPPER(SUBSTR(p_sir_caractere,v_index,1));
+        ELSE
+           v_rezultat := v_rezultat || LOWER(SUBSTR(p_sir_caractere,v_index,1));
+        END IF;
+    END LOOP;
+  
+   return v_rezultat; --neaparat return, pt ca e functie
+END;
+
+--apel de functie:
+--1. in select
+select make_waves('Facultatea de informatica') from dual;
+
+--2. in metoda de afisare
+begin
+    dbms_output.put_line ( make_waves('Facultatea de informatica') );
+end;
+
+--3. atribuire variabila
+declare
+    text varchar2(50);
+begin
+  dbms_output.put_line(make_waves('Facultatea de informatica' ,text));  -- in caz ca folosim variabila OUT
+ -- text:= make_waves('Facultatea de informatica');
+ -- dbms_output.put_line(text);
+end;
+
+drop function make_waves;
+
+-----Pachete
+--ANTETUL---
+--- vom manageria info despre un student cu un id dat: afisare informatii si stergere student dat
+-- se poate si dupa nr matricol
+
+CREATE OR REPLACE PACKAGE manager_facultate IS   -- tot ce e in antet e public, variabila g_today_date va fi apelata din bloc anonim
+    g_today_date   DATE:= SYSDATE;
+    PROCEDURE sterge_student (p_id studenti.id%type);
+    Procedure afiseaza_student (p_id studenti.id%type);
+END manager_facultate;
+/
+--BODY--------
+CREATE OR REPLACE PACKAGE BODY manager_facultate IS
+
+    nume_facultate VARCHAR2(100) := 'Facultatea de Informatica din IASI';   -- variabila privata
+    
+    Function exista_student(p_id studenti.id%type )return boolean is    -- functie privata
+    numar number;
+    begin
+        select count(*) into numar from studenti where id=p_id;
+        if numar <>0 then
+            return true;
+        else return false;
+        end if;
+    end exista_student; --nu este obligatoriu sa se scrie numele functiei, dar ar fi indicat
+    
+    FUNCTION calculeaza_varsta(data_nastere DATE) RETURN INT AS   -- functie privata
+    BEGIN
+       RETURN FLOOR((g_today_date - data_nastere)/365);  -- apelam variabila publica
+    END calculeaza_varsta;   
+
+    Procedure afiseaza_student(p_id studenti.id%type) is
+    v_nume studenti.nume%type;
+    v_prenume studenti.prenume%type;
+    v_matricol studenti.nr_matricol%type;
+    v_nastere studenti.data_nastere%type;
+    begin
+        if exista_student(p_id) then  
+            select nume, prenume, nr_matricol, data_nastere into v_nume, v_prenume, v_matricol, v_nastere from studenti where id = p_id;
+            DBMS_OUTPUT.PUT_LINE(v_nume||' '||v_prenume||' '||v_matricol||' '||v_nastere||' '||calculeaza_varsta(v_nastere)  --apel fuct. privata
+                                    ||' student la '||nume_facultate);
+        else DBMS_OUTPUT.PUT_LINE(' Nu exista studentul cu id-ul ' ||p_id);
+        end if;
+    end;
+    
+    PROCEDURE sterge_student (p_id studenti.id%type) IS
+    nr_prieteni number;
+    nr_note number;
+    BEGIN
+        if exista_student(p_id) then
+            select count(*) into nr_prieteni from prieteni where id_student1=p_id or id_student2 = p_id;
+            if nr_prieteni <> 0 then delete from prieteni where id_student1=p_id or id_student2=p_id;
+            end if;
+      
+            select count(*) into nr_note from note where id_student=p_id ;
+            if nr_note <> 0 then delete from note where id_student=p_id;
+            end if;
+            
+            delete from studenti where id = p_id;
+            DBMS_OUTPUT.PUT_LINE('S-a sters studentul cu id-ul '||p_id);
+        else DBMS_OUTPUT.PUT_LINE(' Nu exista studentul cu id-ul '||p_id||' ca sa il putem sterge');
+        end if;
+    END sterge_student;
+    
+END manager_facultate;  
+ / 
+--- APEL PACHET----
+declare
+v_id studenti.id%type :=1024;  --acest stud nu exista. Apoi testam cu 1025
+BEGIN
+DBMS_OUTPUT.PUT_LINE (' Afisam date student '||v_id||' in data de '|| manager_facultate.g_today_date); -- variabila publica
+   manager_facultate.afiseaza_student(v_id); -- proc publica
+   manager_facultate.sterge_student(v_id);-- proc publica
+   manager_facultate.afiseaza_student(v_id);
+--   rollback;
+END;  
+/
+select * from studenti where id=1024;  --1026
+select count(*) from note where id_student=1025; 
+select count(*) from prieteni where id_student1=1025 or id_student2=1025;
+
+rollback;
+
+---DROP
+DROP PACKAGE manager_facultate;
+
+
+
