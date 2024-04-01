@@ -18,3 +18,5 @@
 - Lab 5
 	- Compulsory
 	- Homework
+- Lab 6
+    - Compulsory
