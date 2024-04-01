@@ -3,6 +3,9 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * the whole window of the app
+ */
 public class MainFrame extends JFrame {
 
     ConfigPanel configPanel;
@@ -23,9 +26,21 @@ public class MainFrame extends JFrame {
         add(canvas, BorderLayout.CENTER);
         pack();
     }
-    public void updateGraph(int size) {
-        canvas.init(size, size);
-        canvas.revalidate(); // This ensures the layout manager is aware of the size change
+    public void updateGraph(int size1, int size2) {
+        canvas.deleteStones();
+        canvas.init(size1, size2);
+        canvas.revalidate(); // this ensures the layout manager is aware of the size change
         canvas.repaint();
+    }
+
+    public void setWarn(String warning) {
+        controlPanel.setWarn(warning);
+    }
+
+    public void setHelp(String help) {
+        controlPanel.setHelp(help);
+    }
+    public void exportPNG() {
+        canvas.exportPNG();
     }
 }

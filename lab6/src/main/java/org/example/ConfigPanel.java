@@ -3,10 +3,13 @@ package org.example;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * the panel where you can set the size of the board
+ */
 public class ConfigPanel extends JPanel {
     final MainFrame frame;
     JLabel label;
-    JSpinner spinner;
+    JSpinner spinner1, spinner2;
     JButton btn;
     public ConfigPanel(MainFrame frame) {
         this.frame = frame;
@@ -14,15 +17,18 @@ public class ConfigPanel extends JPanel {
     }
 
     public void updateGraph(ActionEvent actionEvent) {
-        int size = (Integer) spinner.getValue(); // Get the spinner value
-        frame.updateGraph(size);
+        int size1 = (Integer) spinner1.getValue(); // Get the spinner value
+        int size2 = (Integer) spinner2.getValue();
+        frame.updateGraph(size1, size2);
     }
     private void init() {
         label = new JLabel("Grid size: ");
-        spinner = new JSpinner(new SpinnerNumberModel(10, 2, 100, 1));
+        spinner1 = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));
+        spinner2 = new JSpinner(new SpinnerNumberModel(10, 2, 50, 1));
         btn = new JButton("Start");
         add(label);
-        add(spinner);
+        add(spinner1);
+        add(spinner2);
         add(btn);
         btn.addActionListener(this::updateGraph);
     }

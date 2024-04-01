@@ -20,3 +20,4 @@
 	- Homework
 - Lab 6
     - Compulsory
+    - Homework
