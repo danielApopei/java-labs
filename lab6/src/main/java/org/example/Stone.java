@@ -1,11 +1,12 @@
 package org.example;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * class representing a stone a player can place
  */
-public class Stone {
+public class Stone implements Serializable {
     public int x;
     public int y;
     public Color player;

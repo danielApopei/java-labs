@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.*;
 
 /**
  * the actual playing area
@@ -258,6 +259,29 @@ public class DrawingPanel extends JPanel {
         try {
             ImageIO.write(bufferedImage, "PNG", outputFile);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveStatus() {
+        GameState gameState = new GameState(lastX, lastY, stones, roads, currentPlayer);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameStatus.ser"))) {
+            out.writeObject(gameState);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadStatus() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameStatus.ser"))) {
+            GameState gameState = (GameState) in.readObject();
+            this.lastX = gameState.lastX;
+            this.lastY = gameState.lastY;
+            this.stones = gameState.stones;
+            this.roads = gameState.roads;
+            this.currentPlayer = gameState.currentPlayer;
+            repaint(); // Refresh the panel with the loaded state
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

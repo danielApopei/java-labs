@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * panel containing options about saving/loading progress, exporting to png or exiting
+ * panel containing option s about saving/loading progress, exporting to png or exiting
  */
 public class ControlPanel extends JPanel {
     final MainFrame frame;
@@ -42,6 +42,9 @@ public class ControlPanel extends JPanel {
         buttonPanel2.add(exitBtn);
         add(buttonPanel2);
         //configure listeners for all buttons
+        saveBtn.addActionListener(this::saveStatus);
+        loadBtn.addActionListener(this::loadStatus);
+
         exportBtn.addActionListener(this::exportPNG);
         exitBtn.addActionListener(this::exitGame);
     }
@@ -59,5 +62,12 @@ public class ControlPanel extends JPanel {
 
     public void setHelp(String help) {
         helpLabel.setText(help);
+    }
+    public void saveStatus(ActionEvent e) {
+        frame.saveStatus();
+    }
+
+    public void loadStatus(ActionEvent e) {
+        frame.loadStatus();
     }
 }

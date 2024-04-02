@@ -1,9 +1,11 @@
 package org.example;
 
+import java.io.Serializable;
+
 /**
  * represents a road between junctions in the grid
  */
-public class Road {
+public class Road implements Serializable {
     public int x1, y1;
     public int x2, y2;
     public Road(int x1, int y1, int x2, int y2) {

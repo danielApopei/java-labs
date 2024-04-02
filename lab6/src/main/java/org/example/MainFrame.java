@@ -43,4 +43,12 @@ public class MainFrame extends JFrame {
     public void exportPNG() {
         canvas.exportPNG();
     }
+
+    public void saveStatus() {
+        canvas.saveStatus();
+    }
+
+    public void loadStatus() {
+        canvas.loadStatus();
+    }
 }
