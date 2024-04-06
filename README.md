@@ -21,3 +21,5 @@
 - Lab 6
     - Compulsory
     - Homework
+- Lab 7
+    - Compulsory
