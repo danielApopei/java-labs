@@ -24,12 +24,14 @@ public class Bag {
         return extracted;
     }
 
-    public void generateBag() {
+    public void generateBag(int tileCount, int highNumber) {
         tileList.clear();
-        int n = (int) (Math.random() * 30);
-        for(int i=0;i<n;i++) {
-            int x = (int)(1 + Math.random() * 10);
-            int y = (int)(1 + Math.random() * 10);
+        for(int i=0;i<tileCount;i++) {
+            int x = (int)(1 + Math.random() * highNumber);
+            int y = (int)(1 + Math.random() * highNumber);
+            while(y==x) {
+                y = (int)(1 + Math.random() * highNumber);
+            }
             Tile t = new Tile(x,y);
             tileList.add(t);
         }
