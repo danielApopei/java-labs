@@ -18,6 +18,7 @@ public class ArtistAO {
         try (PreparedStatement pstmt = con.prepareStatement(
                 "insert into authors (name) values (?)")) {
             pstmt.setString(1, author.name);
+            System.out.println("name: " + author.name);
             pstmt.executeUpdate();
         }
     }
