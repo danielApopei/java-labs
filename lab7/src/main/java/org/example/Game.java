@@ -67,7 +67,7 @@ public class Game {
         for(Player player : players) {
             Thread t = new Thread(player);
             threads.add(t);
-            t.start(); // wtf is this?
+            t.start();
         }
         for(Thread thread : threads) {
             thread.join();

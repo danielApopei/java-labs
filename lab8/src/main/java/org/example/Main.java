@@ -1,15 +1,12 @@
 package org.example;
 
-import domain.Author;
-
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         try {
             ArtistAO authors = new ArtistAO();
-            Author david = new Author("David Blaine");
-            authors.create(david);
+            authors.create("David Blaine");
             Database.getConnection().commit();
             Database.getConnection().close();
         } catch (SQLException e) {

@@ -1,38 +1,40 @@
 package org.example;
 
-import domain.Author;
+import domain.Book;
 
 import java.sql.*;
 
-public class ArtistAO {
-    public void create(String name) throws SQLException {
+public class BookAO {
+    public void create(String title) throws SQLException {
         Connection con = Database.getConnection();
         try (PreparedStatement pstmt = con.prepareStatement(
-                "insert into authors (name) values (?)")) {
-            pstmt.setString(1, name);
+                "insert into books (title) values (?)")) {
+            pstmt.setString(1, title);
             pstmt.executeUpdate();
         }
     }
-    public void create(Author author) throws SQLException {
+    public void create(Book book) throws SQLException {
         Connection con = Database.getConnection();
         try (PreparedStatement pstmt = con.prepareStatement(
-                "insert into authors (name) values (?)")) {
-            pstmt.setString(1, author.name);
+                "insert into books (title, language) values (?, ?, ?)")) {
+            pstmt.setString(1, book.title);
+            pstmt.setString(2, book.language);
+            pstmt.setInt(3, book.pageCount);
             pstmt.executeUpdate();
         }
     }
-    public Integer findByName(String name) throws SQLException {
+    public Integer findByTitle(String title) throws SQLException {
         Connection con = Database.getConnection();
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(
-                     "select id from authors where name='" + name + "'")) {
+                     "select id from books where title='" + title + "'")) {
             return rs.next() ? rs.getInt(1) : null;
         }
     }
     public String findById(int id) throws SQLException {
         Connection con = Database.getConnection();
         try(Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from artists where id = " + id)) {
+            ResultSet rs = stmt.executeQuery("select * from books where id = " + id)) {
             return rs.next() ? rs.getString(1) : null;
         }
     }
