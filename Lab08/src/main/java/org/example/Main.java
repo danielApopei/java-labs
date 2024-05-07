@@ -1,27 +1,40 @@
 package org.example;
 
-import org.example.db_management.Database;
-import org.example.domain.Author;
-import org.example.domain.Genre;
+import org.example.config.Database;
+import org.example.dao.AuthorDAO;
+import org.example.dao.BookDAO;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+        Database.createConnection();
+        AuthorDAO authors = new AuthorDAO();
 //        try {
-//            ArtistAO authors = new ArtistAO();
-//            GenreAO genres = new GenreAO();
-//            Author david = new Author("David Blaine");
-//            Genre genre1 = new Genre("Genre 1");
-//            authors.create(david);
-//            //genres.create(genre1);
-//            Database.getConnection().commit();
-//            Database.getConnection().close();
+//            authors.create("David Blaine");
 //        } catch (SQLException e) {
-//            Database.rollback();
-//            System.err.println(e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            Integer foundById = authors.findByName("David Blaine");
+//            System.out.println(foundById);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
 //        }
 
+//        Book book = new Book("Book Title", List.of("David Blaine", "Author 2"), 100, new java.util.Date());
+//        try {
+//            BookDAO.create(book);
+//        } catch (SQLException | JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        try {
+            Integer foundById = BookDAO.findByName("Book Title");
+            System.out.println(foundById);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
