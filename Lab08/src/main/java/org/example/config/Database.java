@@ -9,20 +9,23 @@ import java.sql.SQLException;
 public class Database {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "PASSWORD";
 
-    private static HikariConfig config;
-    private static HikariDataSource dataSource;
+    private static HikariDataSource dataSource = null;
 
     private Database() {}
 
     public static void createConnection() {
-        config = new HikariConfig();
-        config.setJdbcUrl(JDBC_URL);
-        config.setUsername(USERNAME);
-        config.setPassword(PASSWORD);
+        if(dataSource == null)
+        {
+            HikariConfig config = new HikariConfig();
+            config.setLeakDetectionThreshold(500);
+            config.setJdbcUrl(JDBC_URL);
+            config.setUsername(USERNAME);
+            config.setPassword(PASSWORD);
 
-        dataSource = new HikariDataSource(config);
+            dataSource = new HikariDataSource(config);
+        }
     }
 
 

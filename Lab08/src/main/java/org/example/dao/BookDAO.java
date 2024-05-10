@@ -24,11 +24,12 @@ public class BookDAO {
         statement.executeUpdate();
         statement.close();
 
-        for(int i=0; i<book.getAuthor().size(); i++){
-            if(AuthorDAO.findByName(book.getAuthor().get(i) ) == null){
+        for(int i=0; i<book.getAuthor().size(); i++) {
+            if (AuthorDAO.findByName(book.getAuthor().get(i)) == null) {
                 AuthorDAO.create(book.getAuthor().get(i));
             }
         }
+        con.close();
     }
     public static Integer findByName(String title) throws SQLException {
         Connection con = Database.getConnection();

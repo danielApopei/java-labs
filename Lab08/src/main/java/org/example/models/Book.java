@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Book {
     private String title;
-    private List<String> authors;
+    private final List<String> authors;
     private Integer pages;
     private Date publicationDate;
 
@@ -46,5 +46,15 @@ public class Book {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", authors=" + authors +
+                ", pages=" + pages +
+                ", publicationDate=" + publicationDate +
+                '}';
     }
 }

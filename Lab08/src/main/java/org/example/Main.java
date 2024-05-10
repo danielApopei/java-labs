@@ -3,6 +3,7 @@ package org.example;
 import org.example.config.Database;
 import org.example.dao.AuthorDAO;
 import org.example.dao.BookDAO;
+import org.example.utils.DataImportTool;
 
 import java.sql.SQLException;
 
@@ -29,12 +30,17 @@ public class Main {
 //            throw new RuntimeException(e);
 //        }
 
-        try {
-            Integer foundById = BookDAO.findByName("Book Title");
-            System.out.println(foundById);
-        } catch (SQLException e) {
+//        try {
+//            Integer foundById = BookDAO.findByName("Book Title");
+//            System.out.println(foundById);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+        try{
+            DataImportTool dit = new DataImportTool();
+            dit.readCSV("./datasets/books.csv/books.csv");
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 }
