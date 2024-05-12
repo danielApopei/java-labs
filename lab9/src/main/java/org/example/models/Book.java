@@ -1,26 +1,20 @@
 package org.example.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name="books")
-@NamedQueries({
-        @NamedQuery(name="Book.findAll",
-        query="select b from Book b order by b.title")
-})
+@Entity(name="book")
 public class Book {
     private String title;
     private String authors;
     private Integer pages;
     private Date publicationDate;
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY, generator = "id")
-    @Column(name = "id")
-    private Integer id;
+    private Integer Id;
+    @javax.persistence.Id
+    private Long id;
 
     public Book(String title, String authors, Integer pages, Date publicationDate) {
         this.title = title;
@@ -82,11 +76,22 @@ public class Book {
                 '}';
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
+    }
+
+
+
+    public String getIAuthor(int i) {
+        List<String> l = List.of(this.authors.split(";"));
+        return l.get(i);
+    }
+
+    public int authorCount() {
+        return authors.split(";").length;
     }
 }

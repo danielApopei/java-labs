@@ -51,5 +51,6 @@ public class Main {
 
     static void testJPA() {
         EntityManager em = EntityManagerFactory.createEntityManager();
+        System.out.println("Test complete!");
     }
 }

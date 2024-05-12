@@ -24,9 +24,9 @@ public class BookDAO {
         statement.executeUpdate();
         statement.close();
 
-        for(int i=0; i<book.getAuthor().size(); i++) {
-            if (AuthorDAO.findByName(book.getAuthor().get(i)) == null) {
-                AuthorDAO.create(book.getAuthor().get(i));
+        for(int i=0; i<book.authorCount(); i++) {
+            if (AuthorDAO.findByName(book.getIAuthor(i)) == null) {
+                AuthorDAO.create(book.getIAuthor(i));
             }
         }
         con.close();
