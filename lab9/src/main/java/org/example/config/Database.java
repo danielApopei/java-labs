@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class Database {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "PASSWORD";
+    private static final String PASSWORD = "";
 
     private static HikariDataSource dataSource = null;
 

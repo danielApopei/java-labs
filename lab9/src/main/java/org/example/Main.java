@@ -2,17 +2,28 @@ package org.example;
 
 import org.example.config.Database;
 import org.example.dao.AuthorDAO;
-import org.example.dao.BookDAO;
-import org.example.utils.DataImportTool;
-import org.example.utils.EntityManager;
-import org.example.utils.EntityManagerFactory;
+import org.example.models.Book;
+import org.example.repositories.BookRepository;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         Database.createConnection();
         AuthorDAO authors = new AuthorDAO();
+
+        BookRepository bookRepository = new BookRepository();
+        Book book = new Book("Title", "Author", 350, new Date());
+        bookRepository.create(book);
+
+        String persistenceUnitName = "YourPersistenceUnit";
+
+
+
+
 //        try {
 //            authors.create("David Blaine");
 //        } catch (SQLException e) {
@@ -50,7 +61,7 @@ public class Main {
     }
 
     static void testJPA() {
-        EntityManager em = EntityManagerFactory.createEntityManager();
+        //EntityManager em = JPAEntityManagerFactory.createEntityManager();
         System.out.println("Test complete!");
     }
 }
