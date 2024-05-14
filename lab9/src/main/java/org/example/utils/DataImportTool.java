@@ -1,5 +1,6 @@
 package org.example.utils;
 
+import org.example.config.MyLoggerConfig;
 import org.example.dao.BookDAO;
 import org.example.models.Book;
 
@@ -17,10 +18,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
 public class DataImportTool {
+
+    private static final Logger logger = MyLoggerConfig.LOGGER;
+
     public void readCSV(String file) throws IOException, ParseException, InterruptedException {
         String line = "";
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -44,6 +49,7 @@ public class DataImportTool {
                 System.out.println(book.toString());
                 BookDAO.create(book);
             } catch (ParseException e) {
+                logger.info("Invalid date format! Ignoring entry...");
                 System.out.println("Invalid date format! Ignoring entry...");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
