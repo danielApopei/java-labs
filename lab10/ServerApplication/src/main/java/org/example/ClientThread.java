@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
-    private Socket socket = null;
-    private GameServer server = null;
+    public Socket socket = null;
+    public GameServer server = null;
     public ClientThread(Socket socket, GameServer server) {
         this.socket = socket;
         this.server = server;
@@ -24,6 +24,11 @@ public class ClientThread extends Thread {
                 out.flush();
                 if(request.equals("exit")) {
                     System.out.println("Ok, man! See ya!");
+                    for(ClientThread clientThread: server.threads) {
+                        if(clientThread != this) {
+                            server.threads.remove(clientThread);
+                        }
+                    }
                     break;
                 }
                 if(request.equals("stop")) {
