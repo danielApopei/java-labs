@@ -1,37 +1,35 @@
 package org.example.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity(name="book")
 public class Book {
-    private String title;
-    private String authors;
-    private Integer pages;
-    private Date publicationDate;
-    private Integer Id;
-    @javax.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Book(String title, String authors, Integer pages, Date publicationDate) {
-        this.title = title;
-        this.authors = authors;
-        this.pages = pages;
-        this.publicationDate = publicationDate;
-    }
+    private String title;
 
-    public Book(String title, List<String> authors, Integer pages, Date publicationDate) {
-        this.title = title;
-        this.authors = String.join(" ", authors);
-        this.pages = pages;
-        this.publicationDate = publicationDate;
-    }
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Author> authors = new ArrayList<>();
+
+    private Integer pages;
+
+    @Temporal(TemporalType.DATE)
+    private Date publicationDate;
+
+    // Constructors, getters, and setters
 
     public Book() {
-        this.authors = null;
+    }
+
+    public Book(String title, Integer pages, Date publicationDate) {
+        this.title = title;
+        this.pages = pages;
+        this.publicationDate = publicationDate;
     }
 
     public String getTitle() {
@@ -42,12 +40,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public List<Author> getAuthor() {
         return authors;
     }
 
-    public void addAuthor(String author) {
-        authors = authors+" "+author;
+    public void addAuthor(Author author) {
+        authors.add(author);
     }
 
     public Integer getPages() {

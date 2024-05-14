@@ -1,13 +1,14 @@
 package org.example.repositories;
 
 import org.example.models.Author;
+import org.example.repositories.abstract_repositories.Repository;
 import org.example.utils.JPAEntityManagerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-public class AuthorRepository {
+public class AuthorRepository implements Repository<Author> {
     private EntityManagerFactory entityManagerFactory;
 
     public AuthorRepository() {
@@ -38,5 +39,6 @@ public class AuthorRepository {
         em.close();
         return authors;
     }
+
 
 }

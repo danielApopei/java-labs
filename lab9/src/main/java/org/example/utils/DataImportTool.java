@@ -38,7 +38,6 @@ public class DataImportTool {
                 df = formatter.parse(data[10]);
                 Book book = new Book(
                         data[1], // title
-                        authors2, // authors
                         Integer.parseInt(data[7]), // num of pages
                         df // publication date
                         );

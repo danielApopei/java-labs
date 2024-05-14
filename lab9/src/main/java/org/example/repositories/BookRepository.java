@@ -1,13 +1,14 @@
 package org.example.repositories;
 
 import org.example.models.Book;
+import org.example.repositories.abstract_repositories.Repository;
 import org.example.utils.JPAEntityManagerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-public class BookRepository {
+public class BookRepository implements Repository<Book> {
     private EntityManagerFactory entityManagerFactory;
 
     public BookRepository(){
