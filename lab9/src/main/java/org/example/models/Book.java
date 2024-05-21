@@ -85,11 +85,11 @@ public class Book {
 
 
     public String getIAuthor(int i) {
-        List<String> l = List.of(this.authors.split(";"));
-        return l.get(i);
+        //List<String> l = List.of(this.authors.split(";"));
+        return "get(i)";
     }
 
     public int authorCount() {
-        return authors.split(";").length;
+        return authors.size();
     }
 }

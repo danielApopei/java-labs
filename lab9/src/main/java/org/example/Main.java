@@ -16,7 +16,7 @@ public class Main {
         AuthorDAO authors = new AuthorDAO();
 
         BookRepository bookRepository = new BookRepository();
-        Book book = new Book("Title", "Author", 350, new Date());
+        Book book = new Book("Title", 350, new Date());
         bookRepository.create(book);
 
         String persistenceUnitName = "YourPersistenceUnit";
