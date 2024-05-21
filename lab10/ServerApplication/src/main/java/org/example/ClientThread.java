@@ -5,47 +5,69 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Iterator;
 
 public class ClientThread extends Thread {
     public Socket socket = null;
     public GameServer server = null;
-    public ClientThread(Socket socket, GameServer server) {
+    private int secretNumber;
+    public ClientThread(Socket socket, GameServer server, int secretNumber) {
         this.socket = socket;
         this.server = server;
+        this.secretNumber = secretNumber;
     }
     public void run() {
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             String request;
-            while ((request = in.readLine()) != null) {
+            while (true) {
+                request = in.readLine();
                 String response = handleRequest(request);
-                out.println(response);
+                out.println("Incearca sa ghicesti numarul secret!");
                 out.flush();
                 if(request.equals("exit")) {
                     System.out.println("Ok, man! See ya!");
-                    for(ClientThread clientThread: server.threads) {
+                    Iterator<ClientThread> iterator = server.threads.iterator();
+                    while (iterator.hasNext()) {
+                        ClientThread clientThread = iterator.next();
                         if(clientThread != this) {
-                            server.threads.remove(clientThread);
+                            iterator.remove();
                         }
                     }
+                    socket.close();
+                    break;
+                }
+                if(isNumeric(request) && Integer.parseInt(request)==secretNumber) {
+                    System.out.println("Congrats man, you found the number!");
+                    Iterator<ClientThread> iterator = server.threads.iterator();
+                    while (iterator.hasNext()) {
+                        ClientThread clientThread = iterator.next();
+                        if(clientThread != this) {
+                            iterator.remove();
+                        }
+                    }
+                    socket.close();
                     break;
                 }
                 if(request.equals("stop")) {
                     System.out.println("ClientThread: stopping server");
                     server.stopServer();
+                    socket.close();
                     break;
                 }
             }
         } catch (IOException e) {
-//            throw new RuntimeException(e);
             System.out.println("Client probably disconnected!");
-        } finally {
-            try{
-                socket.close();
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
+        }
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
         }
     }
 
