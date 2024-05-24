@@ -1,5 +1,7 @@
 package com.example.lab11.author;
 
+import com.example.lab11.models.Author;
+import com.example.lab11.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

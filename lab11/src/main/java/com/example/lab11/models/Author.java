@@ -1,4 +1,4 @@
-package com.example.lab11.author;
+package com.example.lab11.models;
 
 import jakarta.persistence.*;
 

@@ -1,5 +1,7 @@
-package com.example.lab11.author;
+package com.example.lab11.services;
 
+import com.example.lab11.models.Author;
+import com.example.lab11.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
